@@ -11,12 +11,12 @@ export async function POST({request}) {
 }
 
 async function emailExists(email) {
-	return (await db.query(`select * from users where email = ${email})`)).rowCount > 0
+	return (await db.query('select email from users where email = $1', [ email ])).rowCount > 0
 }
 
 async function addUser(email, name) {
 	if (await emailExists(email)) {
 		return fail(400, {email, emailAlreadyExists: true})
 	}
-	return db.query(`insert into users (name, email) values (${name}, ${email})`)
+	return db.query('insert into users (name, email) values ($1, $2)', [ name, email ])
 }

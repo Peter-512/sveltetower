@@ -1,5 +1,4 @@
-import sql from "$lib/db.js"
-import {fail} from '@sveltejs/kit'
+import {sql} from "@vercel/postgres"
 
 async function getUsers(limit, skip) {
 	return sql`

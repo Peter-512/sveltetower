@@ -1,6 +1,5 @@
 import {error, fail, json} from "@sveltejs/kit";
-import sql from "$lib/db.js"
-
+import { sql } from "@vercel/postgres";
 
 export async function POST({request}) {
 	const data = await request.json();

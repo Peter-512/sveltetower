@@ -1,6 +1,5 @@
 import { error, fail, json } from "@sveltejs/kit"
 import supabase from "$lib/db.server.js"
-import { count } from "console"
 export async function POST({ request }) {
 	const data = await request.json()
 	const user = await addUser(data.email, data.name)

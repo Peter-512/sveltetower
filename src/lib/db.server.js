@@ -1,6 +1,11 @@
-import {createPool} from "@vercel/postgres";
-import {POSTGRES_URL} from "$env/static/private"
+import {
+	NEXT_PUBLIC_SUPABASE_URL,
+	NEXT_PUBLIC_SUPABASE_ANON_KEY,
+} from "$env/static/private"
 
-const db = createPool({connectionString: POSTGRES_URL})
+import { createClient } from "@supabase/supabase-js"
 
-export default db
+export default createClient(
+	NEXT_PUBLIC_SUPABASE_URL,
+	NEXT_PUBLIC_SUPABASE_ANON_KEY
+)

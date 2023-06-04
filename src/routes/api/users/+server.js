@@ -1,22 +1,24 @@
-import {error, fail, json} from "@sveltejs/kit";
-import db from "$lib/db.server.js";
-export async function POST({request}) {
-
-	const data = await request.json();
+import { error, fail, json } from "@sveltejs/kit"
+import supabase from "$lib/db.server.js"
+export async function POST({ request }) {
+	const data = await request.json()
 	const user = await addUser(data.email, data.name)
 	if (user.data?.emailAlreadyExists) {
-		throw error(400, {message: "Email already exists"})
+		throw error(400, { message: "Email already exists" })
 	}
 	return json(data)
 }
 
 async function emailExists(email) {
-	return (await db.query('select email from users where email = $1', [ email ])).rowCount > 0
+	return (
+		(await supabase.from("users").select("email").eq("email", email))
+			.count > 0
+	)
 }
 
 async function addUser(email, name) {
 	if (await emailExists(email)) {
-		return fail(400, {email, emailAlreadyExists: true})
+		return fail(400, { email, emailAlreadyExists: true })
 	}
-	return db.query('insert into users (name, email) values ($1, $2)', [ name, email ])
+	return supabase.from("users").insert({ email, name })
 }

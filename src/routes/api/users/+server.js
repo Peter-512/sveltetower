@@ -1,5 +1,6 @@
 import { error, fail, json } from "@sveltejs/kit"
 import supabase from "$lib/db.server.js"
+import { count } from "console"
 export async function POST({ request }) {
 	const data = await request.json()
 	const user = await addUser(data.email, data.name)
@@ -10,10 +11,11 @@ export async function POST({ request }) {
 }
 
 async function emailExists(email) {
-	return (
-		(await supabase.from("users").select("email").eq("email", email))
-			.count > 0
-	)
+	const { count } = await supabase
+		.from("users")
+		.select("email", { count: "estimated" })
+		.ilike("email", email)
+	return !!count
 }
 
 async function addUser(email, name) {

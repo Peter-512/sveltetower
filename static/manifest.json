@@ -6,25 +6,25 @@
 	"theme_color": "#E4741F",
 	"icons": [
 		{
-			"src": "https://storage.googleapis.com/infra-bucket-230516/static/logo.png",
+			"src": "https://pddtgdppxntnufplgurm.supabase.co/storage/v1/object/public/sveltetower-bucket/logo.png?t=2023-06-05T13%3A20%3A52.183Z",
 			"sizes": "1053x1056",
 			"type": "image/png",
 			"purpose": "any"
 		},
 		{
-			"src": "https://storage.googleapis.com/infra-bucket-230516/static/favicon.png",
+			"src": "https://pddtgdppxntnufplgurm.supabase.co/storage/v1/object/public/sveltetower-bucket/favicon.png?t=2023-06-05T13%3A20%3A27.662Z",
 			"sizes": "128x128",
 			"type": "image/png",
 			"purpose": "any"
 		},
 		{
-			"src": "https://storage.googleapis.com/infra-bucket-230516/static/bird.webp",
+			"src": "https://pddtgdppxntnufplgurm.supabase.co/storage/v1/object/public/sveltetower-bucket/static_bird.webp?t=2023-06-05T13%3A21%3A01.881Z",
 			"sizes": "400x300",
 			"type": "image/webp",
 			"purpose": "any"
 		},
 		{
-			"src": "https://storage.googleapis.com/infra-bucket-230516/static/icon.png",
+			"src": "https://pddtgdppxntnufplgurm.supabase.co/storage/v1/object/public/sveltetower-bucket/icon.png?t=2023-06-05T13%3A20%3A42.758Z",
 			"sizes": "512x512",
 			"type": "image/png",
 			"purpose": "any"

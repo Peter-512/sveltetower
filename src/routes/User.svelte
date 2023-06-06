@@ -1,7 +1,6 @@
-<script>
+<script lang="ts">
 	import { fly, fade } from "svelte/transition"
-	/**@type {Record<string, string | number> | undefined}*/
-	export let user = undefined
+	export let user: Record<string, string | number> | undefined = undefined
 	export let number = 0
 </script>
 

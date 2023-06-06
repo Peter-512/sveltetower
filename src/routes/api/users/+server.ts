@@ -9,7 +9,7 @@ export async function POST({ request }) {
 	return json(data)
 }
 
-async function emailExists(email) {
+async function emailExists(email: string) {
 	const { count } = await supabase
 		.from("users")
 		.select("email", { count: "estimated" })
@@ -17,7 +17,7 @@ async function emailExists(email) {
 	return !!count
 }
 
-async function addUser(email, name) {
+async function addUser(email: string, name: string) {
 	if (await emailExists(email)) {
 		return fail(400, { email, emailAlreadyExists: true })
 	}

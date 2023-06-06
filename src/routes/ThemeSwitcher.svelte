@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import { browser } from "$app/environment"
 	import theme from "$lib/shared/stores/theme"
 	const toggleTheme = () => {

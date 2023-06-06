@@ -1,7 +1,6 @@
 import supabase from "$lib/db.server.js"
 
-/** @type {import('./$types').PageServerLoad} **/
-export async function load({ url }) {
+export async function load({ url }: { url: URL }) {
 	const limit = Number(url.searchParams.get("limit")) || 20
 	const skip = Number(url.searchParams.get("skip")) || 0
 	const users = supabase

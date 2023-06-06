@@ -1,13 +1,13 @@
-<script>
+<script lang="ts">
 	import User from "./User.svelte"
 	export let data
 	const randomNumberOfLoadingUsers = Math.floor(Math.random() * 10) + 5
 
 	let emailInput = ""
-	let newUsers = []
+	let newUsers: { email: string; name: string }[] = []
 	let resMessage = ""
-	let status
-	const addUser = async email => {
+	let status: number
+	const addUser = async (email: string) => {
 		if (!email) return
 
 		const name = email.split("@")[0].split(".")[0]

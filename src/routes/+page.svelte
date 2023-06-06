@@ -126,16 +126,17 @@
 	</div>
 {:then users}
 	<div class="flex flex-wrap">
-		{@debug users}
-		{#if users.data}
+		{#if users.data && users.data.length > 0}
 			{#each users.data as user, i (user.id)}
 				<User {user} number={i} />
 			{/each}
+		{:else}
+			<h1 class="text-white font-light text-3xl m-8">
+				No users found...
+			</h1>
 		{/if}
 		{#each newUsers as user, i}
 			<User {user} number={i} />
-		{:else}
-			<h1 class="text-white font-light text-3xl m-8">No users yet...</h1>
 		{/each}
 	</div>
 {:catch error}

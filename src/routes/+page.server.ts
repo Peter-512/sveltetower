@@ -6,7 +6,7 @@ export async function load({ url }: { url: URL }) {
 	const users = supabase
 		.from("users")
 		.select("*")
-		.range(skip, skip + limit)
+		.range(skip, skip + limit - 1)
 	return {
 		streamed: { users },
 	}

@@ -2,11 +2,13 @@
 	import EmailInput from "./EmailInput.svelte"
 	import User from "./User.svelte"
 	import type { UserType } from "$lib/types"
+	import { page } from "$app/stores"
+
 	export let data
-	const randomNumberOfLoadingUsers = Math.floor(Math.random() * 10) + 5
+	const limit = $page.url.searchParams.get("limit") ?? 20
+
 	let newUsers: UserType[] = []
 	const addUser = (user: UserType) => {
-		console.log("addUser")
 		newUsers = [...newUsers, user]
 	}
 </script>
@@ -22,7 +24,7 @@
 
 {#await data.streamed.users}
 	<div class="flex flex-wrap">
-		{#each { length: randomNumberOfLoadingUsers } as _}
+		{#each { length: +limit } as _}
 			<User />
 		{/each}
 	</div>

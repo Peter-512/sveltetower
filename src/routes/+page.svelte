@@ -7,7 +7,8 @@
 	export let data
 	const randomNumberOfLoadingUsers = Math.floor(Math.random() * 10) + 5
 	const limit =
-		$page.url.searchParams.get("limit") ?? randomNumberOfLoadingUsers
+		Number($page.url.searchParams.get("limit")) ??
+		randomNumberOfLoadingUsers
 
 	let newUsers: UserType[] = []
 	const addUser = (user: UserType) => {
@@ -26,7 +27,7 @@
 
 {#await data.streamed.users}
 	<div class="flex flex-wrap">
-		{#each { length: +limit } as _}
+		{#each { length: limit } as _}
 			<User />
 		{/each}
 	</div>

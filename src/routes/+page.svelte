@@ -19,7 +19,7 @@
 	/>
 	<meta
 		property="og:image"
-		content="https://storage.googleapis.com/infra-bucket-230516/static/logo.png"
+		content="https://pddtgdppxntnufplgurm.supabase.co/storage/v1/object/public/sveltetower-bucket/logo.png?t=2023-06-05T13%3A20%3A52.183Z"
 	/>
 	<script>
 		// On page load or when changing themes, best to add inline in `head` to avoid FOUC (flash of unstyled content)

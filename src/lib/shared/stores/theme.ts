@@ -13,9 +13,7 @@ const initialValue = browser
 const theme = writable(initialValue)
 
 theme.subscribe(value => {
-	if (browser) {
-		window.localStorage.setItem("theme", value)
-	}
+	browser && window.localStorage.setItem("theme", value)
 })
 
 export default theme

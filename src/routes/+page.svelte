@@ -5,7 +5,9 @@
 	import { page } from "$app/stores"
 
 	export let data
-	const limit = $page.url.searchParams.get("limit") ?? 20
+	const randomNumberOfLoadingUsers = Math.floor(Math.random() * 10) + 5
+	const limit =
+		$page.url.searchParams.get("limit") ?? randomNumberOfLoadingUsers
 
 	let newUsers: UserType[] = []
 	const addUser = (user: UserType) => {

@@ -24,7 +24,7 @@
 	</div>
 {:else}
 	<div
-		in:fly={{ y: 50, duration: 750, delay: number * 150 }}
+		in:fly|global={{ y: 50, duration: 750, delay: number * 150 }}
 		class="bg-blue-50 m-8 p-4 rounded-lg flex-1 drop-shadow-lg relative"
 	>
 		<p class="text-xl capitalize">{user.name}</p>

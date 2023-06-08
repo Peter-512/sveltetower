@@ -1,5 +1,7 @@
 <script lang="ts">
 	import type { UserType } from "$lib/types"
+	import { Alert } from "flowbite-svelte"
+	import InfoIcon from "./InfoIcon.svelte"
 
 	export let updateUsers: (user: UserType) => void
 	let emailInput = ""
@@ -68,20 +70,16 @@
 		>
 	</div>
 	{#if status === 400}
-		<div
-			class="mx-8 mt-4 p-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-red-900 dark:text-red-300"
-			role="alert"
-		>
+		<Alert color="red" border dismissable class="mx-8 my-4">
+			<InfoIcon slot="icon" />
 			<em class="font-medium">Aww snap!</em>
 			{message}.
-		</div>
+		</Alert>
 	{:else if status >= 500}
-		<div
-			class="mx-8 mt-4 p-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-red-900 dark:text-red-300"
-			role="alert"
-		>
+		<Alert color="red" border dismissable class="mx-8 my-4">
+			<InfoIcon slot="icon" />
 			<em class="font-medium">Oh oh!</em> Something went wrong, please try
 			again later.
-		</div>
+		</Alert>
 	{/if}
 </div>

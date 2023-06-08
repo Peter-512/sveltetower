@@ -4,6 +4,7 @@
 	export let updateUsers: (user: UserType) => void
 	let emailInput = ""
 	let status: number
+	let message = ""
 	const addUser = async (email: string) => {
 		if (!email) return
 
@@ -19,7 +20,10 @@
 		})
 		status = res.status
 		const data = await res.json()
+		console.log(data)
+
 		if (!res.ok) {
+			message = data.message
 			return
 		}
 		updateUsers({ email, name, id: data[0].id })
@@ -68,7 +72,8 @@
 			class="mx-8 mt-4 p-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-red-900 dark:text-red-300"
 			role="alert"
 		>
-			<em class="font-medium">Aww snap!</em> Someone already added that email.
+			<em class="font-medium">Aww snap!</em>
+			{message}.
 		</div>
 	{:else if status >= 500}
 		<div

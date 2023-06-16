@@ -1,5 +1,5 @@
-import supabase from "$lib/db.server.js"
-import type { UserType } from "$lib/types.js"
+import supabase from "$lib/db"
+import type { UserType } from "$lib/types"
 
 export async function load({ url }: { url: URL }) {
 	const limit = Number(url.searchParams.get("limit")) || 20

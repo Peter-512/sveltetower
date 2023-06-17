@@ -3,7 +3,6 @@
 	import User from "./User.svelte"
 	import type { UserType } from "$lib/types"
 	import { page } from "$app/stores"
-	import supabase from "$lib/db"
 
 	export let data
 	const randomNumberOfLoadingUsers = Math.floor(Math.random() * 10) + 5
@@ -15,21 +14,6 @@
 	const addUser = (user: UserType) => {
 		newUsers = [...newUsers, user]
 	}
-
-	const channel = supabase
-		.channel("users")
-		.on(
-			"postgres_changes",
-			{
-				event: "INSERT",
-				schema: "public",
-			},
-			payload => {
-				const user = payload.new as UserType
-				addUser(user)
-			}
-		)
-		.subscribe()
 </script>
 
 <h1 class="text-6xl md:text-9xl m-8 text-center">

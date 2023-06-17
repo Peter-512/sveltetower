@@ -1,5 +1,5 @@
 import { error, json } from "@sveltejs/kit"
-import supabase from "$lib/db.js"
+import supabase from "$lib/db.server.js"
 import type { UserType } from "$lib/types.js"
 import { z } from "zod"
 

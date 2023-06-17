@@ -22,7 +22,6 @@
 		})
 		status = res.status
 		const data = await res.json()
-		console.log(data)
 
 		if (!res.ok) {
 			message = data.message

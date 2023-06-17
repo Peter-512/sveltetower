@@ -38,7 +38,7 @@
 				<User {user} number={i} />
 			{/each}
 		{:else}
-			<h1 class="text-white font-light text-3xl m-8">
+			<h1 class="dark:text-white font-light text-3xl m-8">
 				No users found...
 			</h1>
 		{/if}

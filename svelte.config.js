@@ -9,6 +9,9 @@ const config = {
 		adapter: adapter({ runtime: "edge" }),
 	},
 	preprocess: vitePreprocess(),
+	vitePlugin: {
+		inspector: true,
+	},
 }
 
 export default config

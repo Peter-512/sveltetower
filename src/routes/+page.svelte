@@ -5,6 +5,7 @@
 	import { page } from "$app/stores"
 	import supabase from "$lib/db"
 	import { users } from "$lib/stores/users"
+	import { onMount } from "svelte"
 
 	let newUsers: UserType[] = []
 	$: newUsers = $users
@@ -15,21 +16,23 @@
 		Number($page.url.searchParams.get("limit")) ??
 		randomNumberOfLoadingUsers
 
-	supabase
-		.channel("users")
-		.on(
-			"postgres_changes",
-			{
-				event: "INSERT",
-				schema: "public",
-				table: "users",
-			},
-			payload => {
-				const user = payload.new as UserType
-				$users = [...$users, user]
-			}
-		)
-		.subscribe()
+	onMount(() => {
+		supabase
+			.channel("users")
+			.on(
+				"postgres_changes",
+				{
+					event: "INSERT",
+					schema: "public",
+					table: "users",
+				},
+				payload => {
+					const user = payload.new as UserType
+					$users = [...$users, user]
+				}
+			)
+			.subscribe()
+	})
 </script>
 
 <h1 class="text-6xl md:text-9xl m-8 text-center">

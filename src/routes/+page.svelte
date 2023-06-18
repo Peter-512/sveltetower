@@ -5,7 +5,8 @@
 	import { page } from "$app/stores"
 	import supabase from "$lib/db"
 	import { users } from "$lib/stores/users"
-	import { onMount } from "svelte"
+	import { onDestroy, onMount } from "svelte"
+	import type { RealtimeChannel } from "@supabase/supabase-js"
 
 	let newUsers: UserType[] = []
 	$: newUsers = $users
@@ -16,8 +17,9 @@
 		Number($page.url.searchParams.get("limit")) ??
 		randomNumberOfLoadingUsers
 
+	let channel: RealtimeChannel | null = null
 	onMount(() => {
-		supabase
+		channel = supabase
 			.channel("users")
 			.on(
 				"postgres_changes",
@@ -32,6 +34,10 @@
 				}
 			)
 			.subscribe()
+	})
+
+	onDestroy(() => {
+		channel && supabase.removeChannel(channel)
 	})
 </script>
 

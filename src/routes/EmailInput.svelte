@@ -1,9 +1,7 @@
 <script lang="ts">
-	import type { UserType } from "$lib/types"
 	import { Alert } from "flowbite-svelte"
 	import InfoIcon from "./InfoIcon.svelte"
 
-	export let updateUsers: (user: UserType) => void
 	let emailInput = ""
 	let status: number
 	let message = ""
@@ -27,7 +25,6 @@
 			message = data.message
 			return
 		}
-		updateUsers({ email, name, id: data[0].id })
 		emailInput = ""
 	}
 </script>

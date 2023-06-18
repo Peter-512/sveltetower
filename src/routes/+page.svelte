@@ -3,6 +3,12 @@
 	import User from "./User.svelte"
 	import type { UserType } from "$lib/types"
 	import { page } from "$app/stores"
+	import supabase from "$lib/db"
+	import { users } from "$lib/stores/users"
+	import { onMount } from "svelte"
+
+	let newUsers: UserType[] = []
+	$: newUsers = $users
 
 	export let data
 	const randomNumberOfLoadingUsers = Math.floor(Math.random() * 10) + 5
@@ -10,10 +16,23 @@
 		Number($page.url.searchParams.get("limit")) ??
 		randomNumberOfLoadingUsers
 
-	let newUsers: UserType[] = []
-	const addUser = (user: UserType) => {
-		newUsers = [...newUsers, user]
-	}
+	onMount(() => {
+		supabase
+			.channel("users")
+			.on(
+				"postgres_changes",
+				{
+					event: "INSERT",
+					schema: "public",
+					table: "users",
+				},
+				payload => {
+					const user = payload.new as UserType
+					$users = [...$users, user]
+				}
+			)
+			.subscribe()
+	})
 </script>
 
 <h1 class="text-6xl md:text-9xl m-8 text-center">
@@ -23,7 +42,7 @@
 	> 🚀
 </h1>
 
-<EmailInput updateUsers={addUser} />
+<EmailInput />
 
 {#await data.streamed.users}
 	<div class="flex flex-wrap">
@@ -42,8 +61,8 @@
 				No users found...
 			</h1>
 		{/if}
-		{#each newUsers as user, i (user.id)}
-			<User {user} number={i} />
+		{#each newUsers as user (user.id)}
+			<User {user} />
 		{/each}
 	</div>
 {:catch error}

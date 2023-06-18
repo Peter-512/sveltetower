@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { UserType } from "$lib/types"
-	import { fly, fade } from "svelte/transition"
+	import { fly } from "svelte/transition"
 	export let user: UserType | undefined = undefined
 	export let number = 0
 	const widths = [32, 60]

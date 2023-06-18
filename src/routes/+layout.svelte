@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { DarkMode } from "flowbite-svelte"
 	import "../app.css"
-	import theme from "$lib/shared/stores/theme"
+	import theme from "$lib/stores/theme"
 	const btnClass =
 		"text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg text-xl p-2 absolute top-2 right-2"
 </script>

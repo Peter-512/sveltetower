@@ -22,6 +22,7 @@
 			{
 				event: "INSERT",
 				schema: "public",
+				table: "users",
 			},
 			payload => {
 				const user = payload.new as UserType

@@ -1,20 +1,20 @@
 <script lang="ts">
 	import EmailInput from "./EmailInput.svelte"
 	import User from "./User.svelte"
-	import type { UserType } from "$lib/types"
+	import type { UserRecord } from "$lib/supabase"
 	import { page } from "$app/stores"
 	import supabase from "$lib/db"
 	import { users } from "$lib/stores/users"
 	import { onDestroy, onMount } from "svelte"
 	import type { RealtimeChannel } from "@supabase/supabase-js"
 
-	let newUsers: UserType[] = []
+	let newUsers: UserRecord[] = []
 	$: newUsers = $users
 
 	export let data
 	const randomNumberOfLoadingUsers = Math.floor(Math.random() * 10) + 5
 	const limit =
-		Number($page.url.searchParams.get("limit")) ??
+		Number($page.url.searchParams.get("limit")) ||
 		randomNumberOfLoadingUsers
 
 	let channel: RealtimeChannel | null = null
@@ -29,7 +29,7 @@
 					table: "users",
 				},
 				payload => {
-					const user = payload.new as UserType
+					const user = payload.new as UserRecord
 					$users = [...$users, user]
 				}
 			)
@@ -49,7 +49,6 @@
 </h1>
 
 <EmailInput />
-
 {#await data.streamed.users}
 	<div class="flex flex-wrap">
 		{#each { length: limit } as _}
@@ -62,7 +61,7 @@
 			{#each users.data as user, i (user.id)}
 				<User {user} number={i} />
 			{/each}
-		{:else}
+		{:else if users.data?.length === 0 && newUsers.length === 0}
 			<h1 class="dark:text-white font-light text-3xl m-8">
 				No users found...
 			</h1>

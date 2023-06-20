@@ -1,6 +1,5 @@
 import { error, json } from "@sveltejs/kit"
 import supabase from "$lib/db.js"
-import type { UserType } from "$lib/types.js"
 import { z } from "zod"
 
 export async function POST({ request }) {
@@ -13,7 +12,10 @@ export async function POST({ request }) {
 		.safeParse(data)
 	if (!result.success) {
 		const formatted = result.error.format()
-		throw error(400, { message: formatted?.email?._errors[0] ?? "" })
+		throw error(400, {
+			message:
+				formatted.email?._errors[0] ?? formatted.name?._errors[0] ?? "",
+		})
 	}
 
 	const user = await addUser(data.email, data.name)
@@ -32,9 +34,5 @@ async function addUser(email: string, name: string) {
 	if (await emailExists(email)) {
 		throw error(400, { message: "Someone already added that email" })
 	}
-	return supabase
-		.from("users")
-		.insert({ email, name })
-		.select()
-		.returns<UserType>()
+	return supabase.from("users").insert({ email, name }).select()
 }

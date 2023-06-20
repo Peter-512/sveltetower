@@ -1,8 +1,11 @@
 <script lang="ts">
-	import { Kbd } from "flowbite-svelte"
+	import { Avatar, Kbd } from "flowbite-svelte"
 	import { onMount } from "svelte"
 	import supabase from "$lib/db"
-	import type { RealtimeChannel } from "@supabase/supabase-js"
+	import type {
+		AuthInvalidCredentialsError,
+		RealtimeChannel,
+	} from "@supabase/supabase-js"
 	export let data
 
 	let mousePos = { x: 0, y: 0 }
@@ -65,6 +68,14 @@
 	}
 </script>
 
+<div class="absolute flex left-8 top-4">
+	{#each Object.keys(mice) as _, i}
+		<Avatar
+			dot={{ color: colors[i % colors.length], placement: "top-left" }}
+			stacked
+		/>
+	{/each}
+</div>
 {#each Object.keys(mice) as mouseID, i}
 	{#if id !== mouseID}
 		<span

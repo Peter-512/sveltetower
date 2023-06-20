@@ -6,6 +6,29 @@
 	export let data
 
 	let mousePos = { x: 0, y: 0 }
+	const colors = [
+		"red",
+		"blue",
+		"green",
+		"yellow",
+		"purple",
+		"orange",
+		"pink",
+		"cyan",
+		"lime",
+		"indigo",
+		"teal",
+		"violet",
+		"fuchsia",
+		"amber",
+		"emerald",
+		"sky",
+		"gray",
+		"warmGray",
+		"trueGray",
+		"coolGray",
+		"blueGray",
+	]
 	type MousePos = typeof mousePos
 	const id = crypto.randomUUID()
 	let mice = { [id]: mousePos }
@@ -48,7 +71,8 @@
 			bind:this={ref[i]}
 			{id}
 			class="absolute mouse"
-			style="left: {mice[mouseID].x}px; top: {mice[mouseID].y}px"
+			style="left: {mice[mouseID].x}px; top: {mice[mouseID]
+				.y}px; background-color: {colors[i % colors.length]};"
 		/>
 	{/if}
 {/each}
@@ -64,7 +88,6 @@
 	.mouse {
 		width: 10px;
 		height: 10px;
-		background: red;
 		border-radius: 50%;
 		transition: all 0.1s ease-in-out;
 	}

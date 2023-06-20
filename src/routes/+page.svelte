@@ -44,8 +44,10 @@
 <h1 class="text-6xl md:text-9xl m-8 text-center">
 	<span
 		class="bg-gradient-to-br font-bold from-red-600 to-yellow-500 bg-clip-text text-transparent box-decoration-clone"
-		>Blazingly fast</span
-	> 🚀
+	>
+		Blazingly fast
+	</span>
+	<a href="/chat"> 🚀</a>
 </h1>
 
 <EmailInput />

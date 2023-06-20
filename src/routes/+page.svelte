@@ -1,14 +1,14 @@
 <script lang="ts">
 	import EmailInput from "./EmailInput.svelte"
 	import User from "./User.svelte"
-	import type { UserType } from "$lib/types"
+	import type { UserRecord } from "$lib/supabase"
 	import { page } from "$app/stores"
 	import supabase from "$lib/db"
 	import { users } from "$lib/stores/users"
 	import { onDestroy, onMount } from "svelte"
 	import type { RealtimeChannel } from "@supabase/supabase-js"
 
-	let newUsers: UserType[] = []
+	let newUsers: UserRecord[] = []
 	$: newUsers = $users
 
 	export let data
@@ -29,7 +29,7 @@
 					table: "users",
 				},
 				payload => {
-					const user = payload.new as UserType
+					const user = payload.new as UserRecord
 					$users = [...$users, user]
 				}
 			)

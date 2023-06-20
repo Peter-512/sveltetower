@@ -14,7 +14,7 @@
 	export let data
 	const randomNumberOfLoadingUsers = Math.floor(Math.random() * 10) + 5
 	const limit =
-		Number($page.url.searchParams.get("limit")) ??
+		Number($page.url.searchParams.get("limit")) ||
 		randomNumberOfLoadingUsers
 
 	let channel: RealtimeChannel | null = null
@@ -49,7 +49,6 @@
 </h1>
 
 <EmailInput />
-
 {#await data.streamed.users}
 	<div class="flex flex-wrap">
 		{#each { length: limit } as _}
@@ -62,7 +61,7 @@
 			{#each users.data as user, i (user.id)}
 				<User {user} number={i} />
 			{/each}
-		{:else}
+		{:else if users.data?.length === 0 && newUsers.length === 0}
 			<h1 class="dark:text-white font-light text-3xl m-8">
 				No users found...
 			</h1>

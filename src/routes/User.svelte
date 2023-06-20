@@ -8,10 +8,9 @@
 </script>
 
 {#if !user}
-	{@debug user}
 	<div
 		role="status"
-		class="m-8 max-w-lg p-6 space-y-4 bg-blue-50 rounded-lg flex-1 drop-shadow-lg animate-pulse"
+		class="m-8 p-6 space-y-4 bg-blue-50 rounded-lg flex-1 drop-shadow-lg animate-pulse"
 	>
 		<div>
 			<div

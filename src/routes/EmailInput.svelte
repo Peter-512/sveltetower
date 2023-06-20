@@ -6,7 +6,16 @@
 	let status: number
 	let message = ""
 	const addUser = async (email: string) => {
+		message = ""
+		status = 0
 		if (!email) return
+
+		//  check if online
+		if (!navigator.onLine) {
+			message = "You are offline. Please check your internet connection."
+			status = 400
+			return
+		}
 
 		const name = email.split("@")[0].split(".")[0]
 
@@ -22,6 +31,8 @@
 		const data = await res.json()
 
 		if (!res.ok) {
+			console.log(data)
+
 			message = data.message
 			return
 		}

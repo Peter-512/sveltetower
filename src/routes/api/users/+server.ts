@@ -1,7 +1,6 @@
 import { error, json } from "@sveltejs/kit"
 import supabase from "$lib/db.js"
 import { z } from "zod"
-import type { UserRecord } from "$lib/supabase.js"
 
 export async function POST({ request }) {
 	const data = await request.json()
@@ -13,7 +12,10 @@ export async function POST({ request }) {
 		.safeParse(data)
 	if (!result.success) {
 		const formatted = result.error.format()
-		throw error(400, { message: formatted?.email?._errors[0] ?? "" })
+		throw error(400, {
+			message:
+				formatted.email?._errors[0] ?? formatted.name?._errors[0] ?? "",
+		})
 	}
 
 	const user = await addUser(data.email, data.name)

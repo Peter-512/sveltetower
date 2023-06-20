@@ -1,5 +1,5 @@
 import supabase from "$lib/db"
-import type { UserType } from "$lib/types"
+import type { UserRecord } from "$lib/supabase"
 
 export async function load({ url }: { url: URL }) {
 	const limit = Number(url.searchParams.get("limit")) || 20
@@ -8,7 +8,7 @@ export async function load({ url }: { url: URL }) {
 		.from("users")
 		.select("*")
 		.range(skip, skip + limit - 1)
-		.returns<UserType[]>()
+		.returns<UserRecord[]>()
 	return {
 		streamed: { users },
 	}

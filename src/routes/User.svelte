@@ -1,13 +1,14 @@
 <script lang="ts">
-	import type { UserType } from "$lib/types"
+	import type { UserRecord } from "$lib/supabase"
 	import { fly } from "svelte/transition"
-	export let user: UserType | undefined = undefined
+	export let user: UserRecord | undefined = undefined
 	export let number = 0
 	const widths = [32, 60]
 	const width = widths[Math.floor(Math.random() * widths.length)]
 </script>
 
 {#if !user}
+	{@debug user}
 	<div
 		role="status"
 		class="m-8 max-w-lg p-6 space-y-4 bg-blue-50 rounded-lg flex-1 drop-shadow-lg animate-pulse"

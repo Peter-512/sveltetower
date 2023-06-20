@@ -5,44 +5,53 @@
 	import type { RealtimeChannel } from "@supabase/supabase-js"
 	export let data
 
-	let otherMousePos = { x: 0, y: 0 }
+	let mousePos = { x: 0, y: 0 }
+	type MousePos = typeof mousePos
+	const id = crypto.randomUUID()
+	let mice = { [id]: mousePos }
 	let channel: RealtimeChannel
 	onMount(() => {
 		channel = supabase.channel("chat")
 		channel.on("broadcast", { event: "mouse" }, payload => {
 			if (payload.event === "mouse") {
-				otherMousePos = payload.payload
-				console.log(otherMousePos)
+				mice[payload.payload.id] = payload.payload.mousePos as MousePos
 			}
 		})
 		channel.subscribe()
 	})
-	let ref: HTMLSpanElement
+	let ref: HTMLSpanElement[] = []
 
 	$: {
-		if (ref) {
-			ref.style.left = `${otherMousePos.x}px`
-			ref.style.top = `${otherMousePos.y}px`
-		}
+		ref.map(r => {
+			r.style.left = `${mice[r.id].x}px`
+			r.style.top = `${mice[r.id].y}px`
+		})
 	}
 
 	//  get current mouse position
-	let mousePos = { x: 0, y: 0 }
 	const updateMousePos = (e: MouseEvent) => {
 		mousePos = { x: e.clientX, y: e.clientY }
 	}
-	$: otherMousePos = otherMousePos
 	$: {
 		channel &&
 			channel.send({
 				type: "broadcast",
 				event: "mouse",
-				payload: mousePos,
+				payload: { mousePos, id },
 			})
 	}
 </script>
 
-<span bind:this={ref} class="absolute mouse" />
+{#each Object.keys(mice) as mouseID, i}
+	{#if id !== mouseID}
+		<span
+			bind:this={ref[i]}
+			{id}
+			class="absolute mouse"
+			style="left: {mice[mouseID].x}px; top: {mice[mouseID].y}px"
+		/>
+	{/if}
+{/each}
 <main class="grid h-screen" on:mousemove={updateMousePos}>
 	<div
 		class="dark:text-slate-400 text-slate-500 place-self-center p-4 border rounded-2xl dark:border-slate-400 border-slate-500"
